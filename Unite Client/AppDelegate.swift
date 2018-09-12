@@ -7,15 +7,99 @@
 //
 
 import UIKit
+import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
+    
+    let locationManager = CLLocationManager()
+    
     var window: UIWindow?
-
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
+    {
+        switch (status)
+        {
+        case .restricted, .denied:
+            disableMyAlwaysFeatures()
+            break
+        case .authorizedAlways:
+            enableMyAlwaysFeatures()
+            break;
+        case .authorizedWhenInUse:
+            disableMyAlwaysFeatures()
+            break
+        case .notDetermined:
+            locationManager.requestAlwaysAuthorization()
+        }
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        doPost(isJoining: true)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        doPost(isJoining: false)
+    }
+    
+    func doPost(isJoining: Bool) {
+        let url = URL(string: "https://uniteserver.herokuapp.com")
+        var json = [String:Any]()
+        
+        json["join"] = isJoining
+        do {
+            let data = try JSONSerialization.data(withJSONObject: json, options: [])
+            var request = URLRequest(url: url!)
+            request.httpMethod = "POST"
+            request.httpBody = data
+            
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            let task = URLSession.shared.dataTask(with: request)
+            task.resume()
+        } catch {
+            
+        }
+    }
+    
+    func enableLocationServices() {
+        locationManager.delegate = self
+        
+        switch CLLocationManager.authorizationStatus() {
+        case .notDetermined:
+            locationManager.requestAlwaysAuthorization()
+            break
+        case .restricted, .denied:
+            locationManager.requestAlwaysAuthorization()
+            break
+        case .authorizedAlways:
+            enableMyAlwaysFeatures()
+            break
+        case .authorizedWhenInUse:
+            locationManager.requestAlwaysAuthorization()
+        }
+    }
+    
+    func enableMyAlwaysFeatures()
+    {
+        let geofenceRegionCenter = CLLocationCoordinate2DMake(36.065134, -95.869640)
+        
+        let geofenceRegion = CLCircularRegion(center: geofenceRegionCenter, radius: 50, identifier: "Tuttle")
+        
+        geofenceRegion.notifyOnEntry = true
+        geofenceRegion.notifyOnExit = true
+        locationManager.startMonitoring(for: geofenceRegion)
+    }
+    
+    func disableMyAlwaysFeatures()
+    {
+        locationManager.stopMonitoring(for: locationManager.monitoredRegions.first!)
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        enableLocationServices()
         return true
     }
 
