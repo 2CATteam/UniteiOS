@@ -77,28 +77,28 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 {
                     print("Editing current button")
                     let button = buttons[x]
-                    DispatchQueue.main.async {
-                        button.setTitle(self.toDos[x], for: .normal)
-                    }
+                    //DispatchQueue.main.async {
+                    button.setTitle(self.toDos[x], for: .normal)
+                    //}
                     if (self.states[x])
                     {
                         //If the task is done, make the button green
-                        DispatchQueue.main.async {
-                            print("Making a green button")
-                            button.layer.backgroundColor = UIColor.green.cgColor
-                            button.setNeedsDisplay()
-                            print("Made a green button")
-                        }
+                        //DispatchQueue.main.async {
+                        print("Making a green button")
+                        button.layer.backgroundColor = UIColor.green.cgColor
+                        button.setNeedsDisplay()
+                        print("Made a green button")
+                        //}
                         
                     }
                     else
                     {
                         //If the task is not done, make it be red
-                        DispatchQueue.main.async {
-                            print("Making a red button")
-                            button.layer.backgroundColor = UIColor.red.cgColor
-                            button.setNeedsDisplay()
-                        }
+                        //DispatchQueue.main.async {
+                        print("Making a red button")
+                        button.layer.backgroundColor = UIColor.red.cgColor
+                        button.setNeedsDisplay()
+                        //}
                     }
                 }
             }
@@ -108,10 +108,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 print("Trimming buttons")
                 for x in self.toDos.endIndex..<buttons.endIndex
                 {
-                    DispatchQueue.main.async {
-                        self.buttonCollector.removeArrangedSubview(buttons[x])
-                        self.buttonCollector.setNeedsDisplay()
-                    }
+                    //DispatchQueue.main.async {
+                    self.buttonCollector.removeArrangedSubview(buttons[x])
+                    self.buttonCollector.setNeedsDisplay()
+                    //}
                 }
             }
             self.buttonCollector.reloadInputViews()
