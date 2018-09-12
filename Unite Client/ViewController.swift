@@ -49,9 +49,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             }
             //DispatchQueue.main.async {
             
-                //Refreshes the views
-                self.redrawAllButtons()
-                print("Updated")
+            //Refreshes the views
+            self.redrawAllButtons()
+            print("Updated")
             //}
         }
         //Starts the task
@@ -63,61 +63,61 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         print(self.toDos)
         print(self.states)
         DispatchQueue.main.async {
-        let buttons = self.buttonCollector.arrangedSubviews as! [UIButton]
+            let buttons = self.buttonCollector.arrangedSubviews as! [UIButton]
             //Loop through the data keys array, to show the data on screen
-        for x in self.toDos.startIndex..<self.toDos.endIndex
-        {
-            //If there is no next button, make one with the needed values
-            if (x >= buttons.endIndex)
+            for x in self.toDos.startIndex..<self.toDos.endIndex
             {
-                self.buildToDo(toDoSet: self.toDos[x], isDoneSet: self.states[x])
-            }
-                //If there is a next button, make it match the keys and value
-            else
-            {
-                print("Editing current button")
-                let button = buttons[x]
-                DispatchQueue.main.async {
-                    button.setTitle(self.toDos[x], for: .normal)
-                }
-                if (self.states[x])
+                //If there is no next button, make one with the needed values
+                if (x >= buttons.endIndex)
                 {
-                    //If the task is done, make the button green
-                    DispatchQueue.main.async {
-                        print("Making a green button")
-                        button.layer.backgroundColor = UIColor.green.cgColor
-                        button.setNeedsDisplay()
-                        print("Made a green button")
-                    }
-                    
+                    self.buildToDo(toDoSet: self.toDos[x], isDoneSet: self.states[x])
                 }
+                    //If there is a next button, make it match the keys and value
                 else
                 {
-                    //If the task is not done, make it be red
+                    print("Editing current button")
+                    let button = buttons[x]
                     DispatchQueue.main.async {
-                        print("Making a red button")
-                        button.layer.backgroundColor = UIColor.red.cgColor
-                        button.setNeedsDisplay()
+                        button.setTitle(self.toDos[x], for: .normal)
+                    }
+                    if (self.states[x])
+                    {
+                        //If the task is done, make the button green
+                        DispatchQueue.main.async {
+                            print("Making a green button")
+                            button.layer.backgroundColor = UIColor.green.cgColor
+                            button.setNeedsDisplay()
+                            print("Made a green button")
+                        }
+                        
+                    }
+                    else
+                    {
+                        //If the task is not done, make it be red
+                        DispatchQueue.main.async {
+                            print("Making a red button")
+                            button.layer.backgroundColor = UIColor.red.cgColor
+                            button.setNeedsDisplay()
+                        }
                     }
                 }
             }
-        }
             //Trim off any extra buttons
-        if (self.toDos.endIndex <= buttons.endIndex)
-        {
-            print("Trimming buttons")
-            for x in self.toDos.endIndex..<buttons.endIndex
+            if (self.toDos.endIndex <= buttons.endIndex)
             {
-                DispatchQueue.main.async {
-                    self.buttonCollector.removeArrangedSubview(buttons[x])
-                    self.buttonCollector.setNeedsDisplay()
+                print("Trimming buttons")
+                for x in self.toDos.endIndex..<buttons.endIndex
+                {
+                    DispatchQueue.main.async {
+                        self.buttonCollector.removeArrangedSubview(buttons[x])
+                        self.buttonCollector.setNeedsDisplay()
+                    }
                 }
             }
-        }
-        self.buttonCollector.reloadInputViews()
-        self.buttonCollector.setNeedsDisplay()
-        print(self.toDos)
-        print(self.states)
+            self.buttonCollector.reloadInputViews()
+            self.buttonCollector.setNeedsDisplay()
+            print(self.toDos)
+            print(self.states)
         }
         print("Out")
     }
@@ -149,7 +149,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                     self.states[x] = jsonObj?.value(forKey: self.toDos[x]) as! Bool
                 }
                 //DispatchQueue.main.async {
-                    self.redrawAllButtons()
+                self.redrawAllButtons()
                 //}
             }
             task.resume()
@@ -204,7 +204,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                     self.states[x] = jsonObj?.value(forKey: self.toDos[x]) as! Bool
                 }
                 //DispatchQueue.main.async {
-                    self.redrawAllButtons()
+                self.redrawAllButtons()
                 //}
             }
             task.resume()
@@ -298,7 +298,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                         self.states[x] = jsonObj?.value(forKey: self.toDos[x]) as! Bool
                     }
                     //DispatchQueue.main.async {
-                        self.redrawAllButtons()
+                    self.redrawAllButtons()
                     //}
                 }
                 
