@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		81B951F8C36D9E5FAA786184 /* Pods_Unite_Client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 887CBA88436A02CD027856C3 /* Pods_Unite_Client.framework */; };
+		8D41059A214D5820002C9041 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D410599214D5820002C9041 /* CollectionViewCell.swift */; };
 		8DFDA243211E78450062D537 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFDA242211E78450062D537 /* AppDelegate.swift */; };
 		8DFDA245211E78450062D537 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFDA244211E78450062D537 /* ViewController.swift */; };
 		8DFDA248211E78450062D537 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DFDA246211E78450062D537 /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 		4E1357D268035BB3B63ADA54 /* Pods-Unite Client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unite Client.release.xcconfig"; path = "Pods/Target Support Files/Pods-Unite Client/Pods-Unite Client.release.xcconfig"; sourceTree = "<group>"; };
 		6C64185203DF644BE90C6296 /* Pods-Unite Client.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unite Client.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Unite Client/Pods-Unite Client.debug.xcconfig"; sourceTree = "<group>"; };
 		887CBA88436A02CD027856C3 /* Pods_Unite_Client.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Unite_Client.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D410599214D5820002C9041 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		8DFDA23F211E78450062D537 /* Unite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DFDA242211E78450062D537 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8DFDA244211E78450062D537 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				8DFDA242211E78450062D537 /* AppDelegate.swift */,
 				8DFDA244211E78450062D537 /* ViewController.swift */,
 				8DFDA246211E78450062D537 /* Main.storyboard */,
+				8D410599214D5820002C9041 /* CollectionViewCell.swift */,
 				8DFDA249211E785A0062D537 /* Assets.xcassets */,
 				8DFDA24B211E785A0062D537 /* LaunchScreen.storyboard */,
 				8DFDA24E211E785A0062D537 /* Info.plist */,
@@ -183,6 +186,7 @@
 			files = (
 				8DFDA245211E78450062D537 /* ViewController.swift in Sources */,
 				8DFDA243211E78450062D537 /* AppDelegate.swift in Sources */,
+				8D41059A214D5820002C9041 /* CollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
