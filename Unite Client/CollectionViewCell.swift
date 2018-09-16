@@ -11,9 +11,7 @@ import UIKit
 class CollectionViewCell: UICollectionViewCell {
     var button: UIButton?
     
-    var wasDone: Bool?
-    
-    func displayContent(toDoName: String, isDone: Bool, instance: ViewController)
+    func displayContent(toDoName: String, wasDone: Bool, isDone: Bool, instance: ViewController)
     {
         //Creates a new button if one does not already exist
         if (button == nil)
@@ -34,6 +32,7 @@ class CollectionViewCell: UICollectionViewCell {
         
         //Display data on button
         button!.setTitle(toDoName, for: .normal)
+        button?.layer.backgroundColor = wasDone ? UIColor(red: 0, green: 0.75, blue: 0, alpha: 1).cgColor : UIColor.red.cgColor
         if (wasDone != isDone)
         {
             if (isDone)
@@ -48,7 +47,6 @@ class CollectionViewCell: UICollectionViewCell {
                     self.button!.layer.backgroundColor = UIColor.red.cgColor
                 })
             }
-            wasDone = isDone
         }
     }
     

@@ -21,6 +21,7 @@ UICollectionViewDelegateFlowLayout {
     //Arrays that together make up an ordered pseudo-dictionary
     var toDos: [String] = []
     var states: [Bool] = []
+    var previousStates: [Bool] = []
     
     //Basic setup
     override func viewDidLoad() {
@@ -47,6 +48,7 @@ UICollectionViewDelegateFlowLayout {
             self.toDos = jsonObj?.allKeys as! [String]
             print(self.toDos)
             self.toDos.sort()
+            self.previousStates = self.states
             self.states = [Bool](repeating: true, count: self.toDos.endIndex)
             for x in self.toDos.startIndex..<self.toDos.endIndex
             {
@@ -84,6 +86,7 @@ UICollectionViewDelegateFlowLayout {
                 let jsonObj = try? JSONSerialization.jsonObject(with: data!, options: []) as! NSDictionary
                 self.toDos = jsonObj?.allKeys as! [String]
                 self.toDos.sort()
+                self.previousStates = self.states
                 self.states = [Bool](repeating: true, count: self.toDos.endIndex)
                 for x in self.toDos.startIndex..<self.toDos.endIndex
                 {
@@ -128,6 +131,8 @@ UICollectionViewDelegateFlowLayout {
                 let jsonObj = try? JSONSerialization.jsonObject(with: data!, options: []) as! NSDictionary
                 self.toDos = jsonObj?.allKeys as! [String]
                 self.toDos.sort()
+                self.previousStates = self.states
+                self.previousStates[index!] = !self.previousStates[index!]
                 self.states = [Bool](repeating: true, count: self.toDos.endIndex)
                 for x in self.toDos.startIndex..<self.toDos.endIndex
                 {
@@ -173,6 +178,7 @@ UICollectionViewDelegateFlowLayout {
                     let jsonObj = try? JSONSerialization.jsonObject(with: data!, options: []) as! NSDictionary
                     self.toDos = jsonObj?.allKeys as! [String]
                     self.toDos.sort()
+                    self.previousStates = self.states
                     self.states = [Bool](repeating: true, count: self.toDos.endIndex)
                     for x in self.toDos.startIndex..<self.toDos.endIndex
                     {
@@ -233,7 +239,12 @@ UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = buttonCollector.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         
-        cell.displayContent(toDoName: toDos[indexPath.row], isDone: states[indexPath.row], instance: self)
+        var wasDone = states[indexPath.row]
+        if previousStates.count == states.count {
+            wasDone = previousStates[indexPath.row]
+        }
+        
+        cell.displayContent(toDoName: toDos[indexPath.row], wasDone: wasDone, isDone: states[indexPath.row], instance: self)
         
         return cell
     }
