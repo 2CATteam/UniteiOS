@@ -86,7 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     {
         let geofenceRegionCenter = CLLocationCoordinate2DMake(36.065134, -95.869640)
         
-        let geofenceRegion = CLCircularRegion(center: geofenceRegionCenter, radius: 50, identifier: "Tuttle")
+        let geofenceRegion = CLCircularRegion(center: geofenceRegionCenter, radius: 50, identifier: "Buttle")
         
         geofenceRegion.notifyOnEntry = true
         geofenceRegion.notifyOnExit = true
