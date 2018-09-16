@@ -11,14 +11,19 @@ import UIKit
 class CollectionViewCell: UICollectionViewCell {
     var button: UIButton?
     
+    var wasDone: Bool?
+    
     func displayContent(toDoName: String, isDone: Bool, instance: ViewController)
     {
+        //Creates a new button if one does not already exist
         if (button == nil)
         {
+            //Creating a button with animation
             button = newButton(toDo: toDoName, isDone: isDone, instance: instance)
             UIView.animate(withDuration: 1, animations: {
-                self.addSubview(self.button!)
+                self.contentView.addSubview(self.button!)
             })
+            //Adding constraints
             let xConstraint = NSLayoutConstraint(item: button!, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0)
             self.addConstraint(xConstraint)
             let widthConstraint = NSLayoutConstraint(item: button!, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: UIScreen.main.bounds.size.width)
@@ -26,18 +31,24 @@ class CollectionViewCell: UICollectionViewCell {
             let heightConstraint = NSLayoutConstraint(item: button!, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 50)
             button!.addConstraint(heightConstraint)
         }
+        
+        //Display data on button
         button!.setTitle(toDoName, for: .normal)
-        if (isDone)
+        if (wasDone != isDone)
         {
-            UIView.animate(withDuration: 1, animations: {
-                self.button!.layer.backgroundColor = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1).cgColor
-            })
-        }
-        else
-        {
-            UIView.animate(withDuration: 1, animations: {
-                self.button!.layer.backgroundColor = UIColor.red.cgColor
-            })
+            if (isDone)
+            {
+                UIView.animate(withDuration: 1.1, animations: {
+                    self.button!.layer.backgroundColor = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1).cgColor
+                })
+            }
+            else
+            {
+                UIView.animate(withDuration: 1.1, animations: {
+                    self.button!.layer.backgroundColor = UIColor.red.cgColor
+                })
+            }
+            wasDone = isDone
         }
     }
     
@@ -59,7 +70,7 @@ class CollectionViewCell: UICollectionViewCell {
         toReturn.setTitle(toDo, for: .normal)
         if (isDone)
         {
-            toReturn.layer.backgroundColor = UIColor.green.cgColor
+            toReturn.layer.backgroundColor = UIColor(red: 0, green: 0.75, blue: 0, alpha: 1).cgColor
         }
         else {
             toReturn.layer.backgroundColor = UIColor.red.cgColor
