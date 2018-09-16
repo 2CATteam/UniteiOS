@@ -22,30 +22,7 @@ UICollectionViewDelegateFlowLayout {
     var toDos: [String] = []
     var states: [Bool] = []
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return toDos.endIndex
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = buttonCollector.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
-        
-        cell.displayContent(toDoName: toDos[indexPath.row], isDone: states[indexPath.row], instance: self)
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.size.width, height: 50)
-    }
-    
+    //Basic setup
     override func viewDidLoad() {
         super.viewDidLoad()
         refreshButton.addTarget(self, action: #selector(updateButtonSet), for: .touchUpInside)
@@ -240,6 +217,35 @@ UICollectionViewDelegateFlowLayout {
             print("Text field: \(textField?.text ?? "null")")
         }))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    //We have only one section
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    //Sets the number of cells
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return toDos.endIndex
+    }
+    
+    //Gives the view its cells
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = buttonCollector.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
+        
+        cell.displayContent(toDoName: toDos[indexPath.row], isDone: states[indexPath.row], instance: self)
+        
+        return cell
+    }
+    
+    //These items should not be able to be moved
+    func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    //Sets the cell size
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: UIScreen.main.bounds.size.width, height: 50)
     }
 }
 
